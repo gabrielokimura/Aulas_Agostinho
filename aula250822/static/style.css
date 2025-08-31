@@ -1,0 +1,22 @@
+.imagens{
+    display: flex;
+    gap: 170px;
+}
+.texto{
+    display: flex;
+    gap: 200px ;
+}
+
+.capa{
+    margin-left: 40px;
+}
+
+.blanca{
+    margin-left: 40px;
+}
+.bobby{
+    margin-left: 60px;
+}
+.kas{
+    margin-left: 40px;
+}
