@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+
+    <form action="/" method="POST">
+
+        <input type="text" name="tabela" placeholder="(nota ou faltas)">
+        <button type="submit">escolher</button>
+    
+    </form>
+    {% if escolha=="notas" %}
+    <h2>Tabela de notas</h2>
+
+    <table border="2px">
+        <tr><th>Nome</th><th>Nota</th></tr>
+        {% for aluno in alunos %}
+        <tr><th>{{aluno.nome}}</th><th>{{aluno.nota}}</th></tr>
+        {% endfor %}
+
+    </table>
+    {% elif escolha=="faltas" %}
+    <h2>Tabela de faltas</h2>
+
+    <table border="2px">
+        <tr><th>Nome</th><th>Faltas</th></tr>
+        {% for pessoa in presenca %}
+        <tr><th>{{pessoa.nome}}</th><th>{{pessoa.faltas}}</th></tr>
+        {% endfor %}
+    {% else %}
+    <p>Digite o que você quer ver, notas ou faltas</p>
+    {% endif %}
+</body>
+</html>
