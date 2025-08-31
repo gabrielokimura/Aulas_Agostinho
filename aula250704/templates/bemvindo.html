@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+</head>
+<body {% if fundo!=None %} style="background-color: {{fundo}};" {% endif %}>
+    <h1>Bem vindo {{user}}</h1>
+
+    <a href="/logout"><button type="button">Logout</button></a>
+
+
+    <form action="/bemvindo" method="POST">
+
+        <input type="text" name="cor" placeholder="Digite sua cor de fundo preferida">
+        <button type="submit">Definir</button>
+
+    </form>
+
+</body>
+</html>
