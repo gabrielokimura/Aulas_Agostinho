@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{user}}</title>
+
+</head>
+<body {% if fundo!=None %} style="background-color: {{fundo}};" {% endif %}>
+    <h1>Bem vindo {{user}}</h1>
+
+
+<p>Digite sua cor preferida em inglês</p>
+    <form action="/bemvindo" method="POST">
+
+        <input type="text" name="cor" placeholder="Digite sua cor de fundo preferida">
+        <button type="submit">Definir</button>
+
+    </form>
+    Contador de acessos: {{contador}}
+<br><br>
+<br>
+<br>
+<br>
+<br>
+<br>
+
+<form action="/bemvindo" method="POST">
+
+    <input type="text" name="categoria" placeholder="(esporte, entretenimento ou lazer)">
+    <button type="submit">Filtrar</button>
+
+</form>
+{% if categoria == None %}
+<h2>Notícias</h2>
+{% for noticia in noticias["esporte"] %}
+<a href="https://www.oi.com.br/">{{noticia}}<br><br></a>
+{% endfor %}
+{% for noticia in noticias["entretenimento"] %}
+<a href="https://www.oi.com.br/">{{noticia}}<br><br></a>
+{% endfor %}
+{% for noticia in noticias["lazer"] %}
+<a href="https://www.oi.com.br/">{{noticia}}<br><br></a>
+{% endfor %}
+
+{% else %}
+
+<h2>Notícias {{categoria}} </h2>
+{% for noticia in noticias[categoria] %}
+<a href=https://www.oi.com.br/>{{noticia}}<br><br></a>
+{% endfor %}
+{% endif %}
+
+
+<br><br><br><br><br>
+<a href="/logout"><button type="button">Logout</button></a>
+
+</body>
+</html>
