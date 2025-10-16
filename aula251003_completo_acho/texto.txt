@@ -1,0 +1,5 @@
+Modelo gerencia os dados e à lógica. O cérebro da aplicação
+
+Visão é a interface do usuário que mosstra os dados 
+
+controle é o intermediário entre os dois

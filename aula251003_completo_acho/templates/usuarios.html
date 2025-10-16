@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lista de usuários</title>
+</head>
+<body>
+    <h1>usuários cadastrados</h1>
+
+    <ul>
+        {% for usuario in lista_usuarios %}
+        <li>{{ usuario.nome }} - {{usuario.email}}</li>
+        {% else %}
+        <li>Nenhum usuário encontrado, deseja adicionar algum usuário?</li>
+        {% endfor %}
+        </ul>
+        <hr>
+        <h2>Adicionar Novo Usuário</h2>
+        <form method="post" action="/usuarios/novo">
+            <input type="text" name="nome" placeholder="Nome Completo" required>
+            <input type="email" name="email" placeholder="Seu melhor email" required>
+            <input type="password" name="senha" placeholder="defina uma boa senha" required>
+            <button type="submit">Adicionar</button>
+        </form>
+
+        {% for usuario in lista_usuarios %}
+        {% if usuario["logado"] and usuario["admin"] %}
+        <hr>
+
+        <h2>Deletar usuário</h2>
+
+        <form method="post" action="/usuarios/deletar">
+            <input type="text" name="nome" placeholder="Nome Completo" required>
+            <input type="email" name="email" placeholder="email completo" required>
+            <button type="submit">Remover</button>
+        </form>
+        {{ mensagem }}
+        {% endif %}
+        {% endfor %}
+        <hr>
+
+        {% for usuario in lista_usuarios %}
+        {% if usuario["logado"]==True %}
+        <h2>Bem Vindo {{usuario["nome"]}}</h2>
+        {% endif %}
+        {% endfor %}
+
+
+        <form method="post" action="/usuarios/logar">
+            <input type="text" name="nome" placeholder="Nome Completo" required>
+            <input type="email" name="email" placeholder="email completo" required>
+            <input type="password" name="senha" placeholder="senha completa" required>
+            <button type="submit">Logar</button>
+        </form>
+        {{ mensagem2 }}
+
+
+
+    </ul>
+</body>
+</html>
