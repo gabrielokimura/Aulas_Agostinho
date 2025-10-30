@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ usuario["nome"] }}</title>
+</head>
+<body>
+
+
+    <h3>Bem vindo, {{ usuario["nome"] }}</h3>
+    <br>
+    <p>Aqui as informações disponíveis</p>
+
+
+
+
+    <h2>Funcionários</h2>
+    <ul>
+        {% for funcionario in modelo.funcionarios %}
+            <li>Nome: {{ funcionario["nome"] }}</li>
+            <li>Email: {{ funcionario["email"] }}</li>
+            <li>Senha: {{ funcionario["senha"] }}</li>
+            <li>Cargo: {{ funcionario["perfil"] }}</li>
+            <br><br>
+        {% endfor %}
+
+
+
+            </ul>
+
+
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+
+
+
+
+            <h2>Hospedes</h2>
+
+
+
+            <ul>
+                {% for hospede in modelo.hospedes %}
+                    <li>Nome: {{ hospede["nome"] }}</li>
+                    <li>Cpf: {{ hospede["cpf"] }}</li>
+                    <li>Telefone: {{ hospede["telefone"] }}</li>
+                    <li>Email: {{ hospede["email"] }}</li>
+                    <br><br>
+                {% endfor %}
+            </ul>
+            
+            
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+
+
+
+
+
+            <h2>Quartos</h2>
+
+
+
+            <ul>
+                {% for quarto in modelo.quartos %}
+                    <li>Número: {{ quarto["numero"] }}</li>
+                    <li>Tipo: {{ quarto["tipo"] }}</li>
+                    <li>Capacidade: {{ quarto["capacidade"] }}</li>
+                    <li>Preço da diária: {{ quarto["preco_diaria"] }}</li>
+                    <li>Descrição: {{ quarto["descricao"] }}</li>
+                    <li>Localização: {{ quarto["localizacao"] }}</li>
+                    <li>status: {{ quarto["status"] }}</li>
+                    <li>Disponibilidade: {% if quarto["disponivel"] %} Disponível  {% else %} Não disponível {% endif %}</li>
+                    <br><br>
+                {% endfor %}
+            </ul>
+
+
+
+
+
+
+
+            <h2>Reservas</h2>
+
+
+
+            <ul>
+                {% for reserva in modelo.reservas %}
+                    {% for hospede in modelo.hospedes %}
+                        {% if reserva["id_hospede"] == hospede["id"]  %}
+                            <li>Hospede: {{ hospede["nome"] }}</li>
+                        {% endif %}
+                    {% endfor %}
+                    <li>Número do quarto: {{ reserva["numero_quarto"] }}</li>
+                    <li>Data do check-in: {{ reserva["data_checkin"] }}</li>
+                    <li>Data do check-out: {{ reserva["data_checkout"] }}</li>
+                    <li>Status da reserva: {{ reserva["status_reserva"] }}</li>
+                    <li>Valor total: {{ reserva["valor_total"] }}</li>
+                    
+                    <br><br>
+                {% endfor %}
+            </ul>
+
+
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+
+
+
+
+            <h2>Finanças</h2>
+
+
+
+            <ul>
+                {% for item in modelo.itens_fatura %}
+
+                    {% for servico in modelo.servicos %}
+                        {% if servico["id"]== item["id_servico"] %}
+                            <li><h3>Itens</h3></li>
+                            <li>Produto: {{ servico["nome"] }}</li>
+                            <li>Preço: {{ servico["preco"] }}</li>
+                            <li>Quantidade: {{ servico["quantidade"] }}</li>
+                            <li>Valor total: {{ item["quantidade"]*servico["preco"] }}</li>
+                        {% endif %}
+                    {% endfor %}
+
+
+                    {% for fatura in modelo.faturas %}
+                        {% if fatura["id"] == item["id_fatura"] %}
+                            <li><h3>Fatura</h3></li>
+                            <li>Data de emissão: {{ fatura["data_emissao"] }}</li>
+                            <li>Valor em serviços: {{ fatura["valor_servicos"] }}</li>
+                            <li>Valor das diárias: {{ fatura["valor_diarias"] }}</li>
+                            <li>Valor total: {{ fatura["valor_diarias"]+fatura["valor_servicos"] }}</li>
+                            <li>Status do pagamento: {{ fatura["status_pagamento"] }}</li>
+                        {% endif %}
+                    {% endfor %}
+                    <br><br>
+                {% endfor %}
+            </ul>
+
+
+</body>
+</html>
+
+
