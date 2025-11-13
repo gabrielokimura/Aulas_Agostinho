@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title></title>
+</head>
+<body>
+    <h1>Bem vindo, {{hospede["nome"]}}</h1>
+
+    <h2>Reservas</h2>
+
+    <ul>
+    {% for reserva in modelo.reservas %}
+        {% if reserva["id_hospede"] == hospede["id"] %}
+        <h3>Reserva</h3>
+            <li>Número do quarto: {{ reserva["numero_quarto"] }}</li>
+            <li>Data de check-in: {{ reserva["data_checkin"] }}</li>
+            <li>Data de check-iout: {{ reserva["data_checkout"] }}</li>
+            <li>Status da reserva: {{ reserva["status_reserva"] }}</li>
+            <li>Volar das Diárias: {{ reserva["valor_total"] }}</li>
+        {% endif %}
+        {% for fatura in modelo.faturas %}
+            {% if fatura["id_reserva"] == reserva["id"] %}
+                <li>Data de emissão da fatura: {{ fatura["data_emissao"] }}</li>
+            {% endif %}
+            {% for item in modelo.itens_fatura %}
+                {% if item["id_fatura"]  ==  fatura["id"] %}
+                    {% for servico in modelo.servicos %}
+                        {% if item["id_servico"] == servico["id"] %}
+                            <h4>Serviços</h4>
+                            <li>Serviço solicitado: {{ servico["nome"] }}</li>
+                            <li>Preço do serviço: {{ servico["preco"] }}</li>
+                        {% endif %}
+                    {% endfor %}
+                    <li>Quantidade: {{item["quantidade"]}}</li>
+                    <li>Data de consumo: {{ item["data_consumo"] }}</li>
+                {% endif %}
+            {% endfor %}
+            <li>Valor total: {{ fatura["valor_servicos"]+fatura["valor_diarias"] }}</li>
+        {% endfor %}
+
+
+    {% endfor %}
+</body>
+</html>

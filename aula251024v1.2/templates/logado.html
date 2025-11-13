@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ usuario["nome"] }}</title>
+</head>
+<body>
+
+
+    <h3>Bem vindo, {{ usuario["nome"] }}</h3>
+    <br>
+    <p>Aqui as informações disponíveis</p>
+
+
+
+    {%  if usuario["perfil"] == "admin" %}
+    <h2>Funcionários</h2>
+    <ul>
+        {% for funcionario in modelo.funcionarios %}
+            <li>Nome: {{ funcionario["nome"] }}</li>
+            <li>Email: {{ funcionario["email"] }}</li>
+            <li>Senha: {{ funcionario["senha"] }}</li>
+            <li>Cargo: {{ funcionario["perfil"] }}</li>
+            <br><br>
+        {% endfor %}
+            </ul>
+<br><br>
+
+
+    <h3>Remover Funcionário</h3>
+    <form action="/remover_funcionario" method="POST" novalidate>
+
+        <div>
+            <label for="nome">Nome do funcionário</label>
+            <input type="text"  name="nome" required minlength="3" placeholder="  " >
+        </div>
+
+        <div>
+
+            <label for="email">Email do funcionário</label>
+            <input type="text" name="email" required minlength="3" placeholder="  ">
+
+        </div>        
+        <button type="submit">Remover</button>
+
+    </form>
+
+
+
+
+
+
+    <h3>Adicionar Funcionário</h3>
+    <form action="/adicionar_funcionario" method="POST" novalidate>
+
+        <div>
+            <label for="nome">Nome do funcionário</label>
+            <input type="text"  name="nome" required minlength="3" placeholder="  " >
+        </div>
+
+        <div>
+
+            <label for="email">Email do funcionário</label>
+            <input type="text"  name="email" required minlength="3" placeholder="  ">
+
+        </div>       
+        
+        <div>
+
+            <label for="email">Senha do funcionário</label>
+            <input type="text"  name="senha" required minlength="3" placeholder="  ">
+
+        </div>
+
+        <div>
+
+            <label for="email">Cargo do funcionário</label>
+            <input type="text" name="cargo" required minlength="3" placeholder="  ">
+
+        </div>
+        <button type="submit">Adicionar</button>
+
+    </form>
+
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+        {% endif %}
+
+
+
+        {% if usuario["perfilo"] == "admin" or usuario["perfil"] == "recepcionista" %}
+
+
+            <h2>Hospedes</h2>
+
+
+
+            <ul>
+                {% for hospede in modelo.hospedes %}
+                    <li>Nome: {{ hospede["nome"] }}</li>
+                    <li>Cpf: {{ hospede["cpf"] }}</li>
+                    <li>Telefone: {{ hospede["telefone"] }}</li>
+                    <li>Email: {{ hospede["email"] }}</li>
+                    <br><br>
+                {% endfor %}
+            </ul>
+            <br><br><br>
+
+
+
+
+            <h3>Remover hospede</h3>
+    <form action="/remover_hospede" method="POST" novalidate>
+
+        <div>
+            <label for="nome">Nome do hospede</label>
+            <input type="text"  name="nome" required minlength="3" placeholder="  " >
+        </div>
+
+        <div>
+
+            <label for="email">cpf do hospede</label>
+            <input type="text"  name="cpf" required minlength="3" placeholder="  ">
+
+        </div>        
+        <button type="submit">Remover</button>
+
+    </form>
+
+
+
+
+
+
+    <h3>Adicionar hospede</h3>
+    <form action="/adicionar_hospede" method="POST" novalidate>
+
+        <div>
+            <label for="nome">Nome do hospede</label>
+            <input type="text"  name="nome" required minlength="3" placeholder="  " >
+        </div>
+
+        <div>
+
+            <label for="email">Email do hospede</label>
+            <input type="text"  name="email" required minlength="3" placeholder="  ">
+
+        </div>       
+        
+        <div>
+
+            <label for="email">CPF do hospede</label>
+            <input type="text"  name="cpf" required minlength="3" placeholder="  ">
+
+        </div>
+
+        <div>
+
+            <label for="email">Telefone do hospede</label>
+            <input type="text" name="telefone" required minlength="3" placeholder="  ">
+
+        </div>
+        
+        <button type="submit">Adicionar</button>
+
+    </form>
+            
+            
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+
+
+        {% endif %}
+
+        {% if usuario["perfil"] == "admin" or usuario["perfil"] == "camareira" %}
+            <h2>Quartos</h2>
+
+
+
+            <ul>
+                {% for quarto in modelo.quartos %}
+                    <li>Número: {{ quarto["numero"] }}</li>
+                    <li>Tipo: {{ quarto["tipo"] }}</li>
+                    <li>Capacidade: {{ quarto["capacidade"] }}</li>
+                    <li>Preço da diária: {{ quarto["preco_diaria"] }}</li>
+                    <li>Descrição: {{ quarto["descricao"] }}</li>
+                    <li>Localização: {{ quarto["localizacao"] }}</li>
+                    <li>status: {{ quarto["status"] }}</li>
+                    <li>Disponibilidade: {% if quarto["disponivel"] %} Disponível  {% else %} Não disponível {% endif %}</li>
+                    <br><br>
+                {% endfor %}
+            </ul>
+            <br><br><br><br><br><br>
+
+            <h3>Alterar status do quarto</h3>
+    <form action="/atualizar_status_quarto" method="POST" novalidate>
+
+
+        <div>
+            <label for="nome">Número do quarto</label>
+            <input type="number"  name="numero" required minlength="3" placeholder="  " >
+        </div>
+
+        <div>
+
+            <label for="email">Status do quarto</label>
+            <input type="text"  name="status" required minlength="3" placeholder="  "><br>
+
+            <button type="submit">Atualizar status do quarto</button>
+        </div>
+        </form>
+
+
+            <br><br><br><br>
+        {% endif %}
+
+
+        {% if usuario["perfil"] == "admin" %}
+
+            <h3>Alterar quarto</h3>
+    <form action="/atualizar_quarto" method="POST" novalidate>
+
+
+        <div>
+            <label for="nome">Id do quarto</label>
+            <input type="text" name="id" required minlength="3" placeholder="  " >
+        </div>
+        <div>
+            <label for="nome">Número do quarto</label>
+            <input type="text"  name="numero" required minlength="3" placeholder="  " >
+        </div>
+
+        <div>
+
+            <label for="email">Tipo do quarto</label>
+            <input type="text" name="tipo" required minlength="3" placeholder="  ">
+
+        </div>       
+        
+        <div>
+
+            <label for="email">Capacidade do Quarto</label>
+            <input type="text"  name="capacidade" required minlength="3" placeholder="  ">
+
+        </div>
+
+        <div>
+
+            <label for="email">Preço da diária</label>
+            <input type="text"  name="preco_diaria" required minlength="3" placeholder="  ">
+
+        </div>
+
+        <div>
+
+            <label for="email">Descrição do quarto</label>
+            <input type="text"  name="descricao" required minlength="3" placeholder="  ">
+
+        </div>
+
+        <div>
+
+            <label for="email">status do quarto</label>
+            <input type="text"  name="status" required minlength="3" placeholder="  ">
+
+        </div>
+        
+
+        <div>
+
+            <label for="email">Localização do quarto</label>
+            <input type="text"  name="localizacao" required minlength="3" placeholder="  ">
+
+        </div>
+
+
+        <div>
+
+            <label for="email">Disponibilidade do quarto</label>
+            <input type="text"  name="disponivel" required minlength="3" placeholder="  ">
+
+        </div>
+        <button type="submit">Atualizar quarto</button>
+        </form>
+
+
+<br><br><br><br>
+
+
+
+
+        <br><br><br><br>
+
+
+            <h2>Reservas</h2>
+
+
+
+            <ul>
+                {% for reserva in modelo.reservas %}
+                    {% for hospede in modelo.hospedes %}
+                        {% if reserva["id_hospede"] == hospede["id"]  %}
+                            <li>Hospede: {{ hospede["nome"] }}</li>
+                        {% endif %}
+                    {% endfor %}
+                    <li>Número do quarto: {{ reserva["numero_quarto"] }}</li>
+                    <li>Data do check-in: {{ reserva["data_checkin"] }}</li>
+                    <li>Data do check-out: {{ reserva["data_checkout"] }}</li>
+                    <li>Status da reserva: {{ reserva["status_reserva"] }}</li>
+                    <li>Valor total: {{ reserva["valor_total"] }}</li>
+                    
+                    <br><br>
+                {% endfor %}
+            </ul>
+
+
+            <br>
+            <br>
+            <br>
+            <br>
+            <h3>Nova reserva</h3>
+    <form action="/adicionar_reserva" method="POST" novalidate>
+
+        <div>
+            <label for="nome">Id do hospede</label>
+            <input type="text" name="id" required minlength="3" placeholder="  " >
+        </div>
+
+        <div>
+
+            <label for="email">Número do quarto</label>
+            <input type="text"  name="numero_quarto" required minlength="3" placeholder="  ">
+
+        </div>       
+        
+        <div>
+
+            <label for="email">Data do checkin</label>
+            <input type="text"  name="checkin" required minlength="3" placeholder="  ">
+
+        </div>
+
+        <div>
+
+            <label for="email">Data do checkout</label>
+            <input type="text"  name="checkout" required minlength="3" placeholder="  ">
+
+        </div>
+
+        <div>
+
+            <label for="email">Status da reserva</label>
+            <input type="text"  name="status" required minlength="3" placeholder="  ">
+
+        </div>
+        
+        <button type="submit">Realizar reserva</button>
+
+        {{ mensagem }}
+
+    </form>
+            <br>
+            <br>
+            <br>
+            <br>
+
+    <h3>Alterar reserva</h3>
+    <form action="/alterar_reserva" method="POST" novalidate>
+
+
+        <div>
+            <label for="nome">Id da reserva</label>
+            <input type="text"  name="id_antigo" required minlength="3" placeholder="  " >
+        </div>
+        <div>
+            <label for="nome">Id do hospede</label>
+            <input type="text"  name="id" required minlength="3" placeholder="  " >
+        </div>
+
+        <div>
+
+            <label for="email">Número do quarto</label>
+            <input type="text"  name="numero_quarto" required minlength="3" placeholder="  ">
+
+        </div>       
+        
+        <div>
+
+            <label for="email">Data do checkin</label>
+            <input type="text"  name="checkin" required minlength="3" placeholder="  ">
+
+        </div>
+
+        <div>
+
+            <label for="email">Data do checkout</label>
+            <input type="text"  name="checkout" required minlength="3" placeholder="  ">
+
+        </div>
+
+        <div>
+
+            <label for="email">Status da reserva</label>
+            <input type="text"  name="status" required minlength="3" placeholder="  ">
+
+        </div>
+        
+        <button type="submit">Alterar reserva</button>
+
+        {{ mensagem2 }}
+
+    </form>
+
+
+    <br><br><br>
+
+            <h2>Finanças</h2>
+
+
+
+            <ul>
+                {% for item in modelo.itens_fatura %}
+
+                    {% for servico in modelo.servicos %}
+                        {% if servico["id"]== item["id_servico"] %}
+                            <li><h3>Itens</h3></li>
+                            <li>Produto: {{ servico["nome"] }}</li>
+                            <li>Preço: {{ servico["preco"] }}</li>
+                            <li>Quantidade: {{ item["quantidade"] }}</li>
+                            <li>Valor total: {{ item["quantidade"]*servico["preco"] }}</li>
+                        {% endif %}
+                    {% endfor %}
+
+
+                    {% for fatura in modelo.faturas %}
+                        {% if fatura["id"] == item["id_fatura"] %}
+                            <li><h3>Fatura</h3></li>
+                            <li>Data de emissão: {{ fatura["data_emissao"] }}</li>
+                            <li>Valor em serviços: {{ fatura["valor_servicos"] }}</li>
+                            <li>Valor das diárias: {{ fatura["valor_diarias"] }}</li>
+                            <li>Valor total: {{ fatura["valor_diarias"]+fatura["valor_servicos"] }}</li>
+                            <li>Status do pagamento: {{ fatura["status_pagamento"] }}</li>
+                        {% endif %}
+                    {% endfor %}
+                    <br><br>
+                {% endfor %}
+            </ul>
+
+        {% endif %}
+
+
+        <a href="/logout">Logout</a>
+
+
+</body>
+</html>
+
+
